@@ -16,8 +16,8 @@ from tornado.websocket import WebSocketHandler
 from collections import defaultdict
 
 define('debug', default=True, type=bool, help='Run in debug mode')
-define('port', default=8080, type=int, help='Server port')
-define('allowed_hosts', default="localhost:8080", multiple=True, help='Allowed hosts for cross domain connections')
+define('port', default=9000, type=int, help='Server port')
+define('allowed_hosts', default="localhost:9000", multiple=True, help='Allowed hosts for cross domain connections')
 
 class PlayerHandler(WebSocketHandler):
     def open(self, Game):
@@ -49,7 +49,10 @@ class UpdateHandler(RequestHandler):
             body = json.loads(self.request.body.decode('utf-8'))
         except ValueError:
             body = None
+        print(self.request.body)
+        print(body)
         message = json.dumps(body)
+        print(message)
         self.application.broadcast(message, game=game)
         self.write("Ok")
 
@@ -76,8 +79,6 @@ class GameApplication(Application):
 
     def broadcast(self, message, game = None, sender = None):
         if game is not None:
-            print(self.get_players(123))
-            print(self.get_players(game))
             for peer in self.get_players(game):
                 if peer != sender:
                     try:

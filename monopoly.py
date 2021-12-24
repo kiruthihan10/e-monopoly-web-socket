@@ -1,11 +1,7 @@
 import logging
 import time
 import signal
-import hashlib
 import json
-
-from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
-from django.utils.crypto import constant_time_compare
 
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop

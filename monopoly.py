@@ -79,7 +79,8 @@ class GameApplication(Application):
                 if peer != sender:
                     try:
                         peer.write_message(message)
-                    except:
+                    except Exception as e:
+                        print(e)
                         self.remove_player(game, peer)
 
 def shutdown(server):

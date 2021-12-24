@@ -1,1 +1,1 @@
-web: gunicorn monopoly.wsgi
+web: python monopoly.py --port=$PORT
